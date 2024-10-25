@@ -1,0 +1,42 @@
+Installation
+1. Appium can be installed globally using npm: npm install -g Appium
+2. Appium can be started using the command line: Appium
+3. Install android-studio (command line tools only): https://developer.android.com/studio#command-line-tools-only
+4. Create folder named "Android"
+5. Extract cmdline-tools to /Android
+6. Create folder named "latest"
+7. Move every file inside /cmdline-tools except "bin" to /latest
+8. Search for file named "sdkmanager" add the path to PATH
+9. Install platform-tools: sdkmanager.bat "platform-tools"
+10. Install the latest build-tools: sdkmanager.bat "build-tools;34.0.0"
+11. Setup ANDROID_HOME to ~/Android in system environment variable
+12. Install Java JDK
+13. Setup JAVA_HOME in system environment variable, usually C:\Program Files\Java\jdk-23
+14. Install Platform for API Level 30: sdkmanager.bat "platforms;android-30"
+15. Enable USB Debugging on phone (Developer Option)
+16. Check if device is connected: adb devices
+17. Copy the device name
+
+Use
+1. Get appPackage: com.twitter.android
+2. Get mainActivity
+---
+get apk location: adb shell pm path com.twitter.android
+/data/app/~~dpGa9ngWJPi4-cSWssAz4g==/com.twitter.android-iKsgUZqQSG-i4bHln_hCAg==/base.apk
+
+pull apk to local: adb pull /data/app/~~dpGa9ngWJPi4-cSWssAz4g==/com.twitter.android-iKsgUZqQSG-i4bHln_hCAg==/base.apk
+
+get activity: aapt d badging base.apk | findstr "launchable-activity"
+com.twitter.android.StartActivity
+---
+
+Capabilities Example:
+capabilities = dict(
+    platformName='Android',
+    automationName='uiautomator2',
+    deviceName='0744125184100418',
+    appPackage='com.twitter.android',
+    appActivity='com.twitter.android.StartActivity',
+    language='en',
+    locale='US'
+)
